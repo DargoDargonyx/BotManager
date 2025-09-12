@@ -86,12 +86,12 @@ The "Leveler" module is used to manage the leveling feature often seen in many d
     Leveler::saveFile(fileDescriptor);
   ```
 
- **Features**
+ **Features TODO**
 
   - [X] Basic level tracking
   - [X] Basic command capabilities
   - [ ] Advanced level tracking
-  - [ ] Advanced command capabilities
+  - [x] Advanced command capabilities
   - [ ] Spam detection
   - [X] Private messaging on level-up
   - [X] Increased graphical display
