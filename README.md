@@ -78,7 +78,7 @@ The Leveler module is used by the ManagerBot to manage the levels of users in th
 <ins>Manipulating Data</ins>
 
   ```cpp
-    std::string userId = "exampleName";
+    std::string userId = "exampleId";
   
     // Returns the level of the user when given a user id
     int level = Leveler::getUserLevel(userId);
