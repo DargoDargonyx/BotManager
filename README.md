@@ -18,6 +18,39 @@ This project was designed for the purpose of managing a discord server created f
 
 This bot is used to manage basic features of the given discord server.
 
+- <ins> Importing the Class </ins>
+
+  ```cpp
+  #include "ManagerBot.h"
+  ```
+  
+- <ins> Constructing a ManagerBot Object </ins>
+
+  ```cpp
+  const dpp::snowflake GENERAL_CHANNEL_ID = 0000000000000000000;
+  const dpp::snowflake BOT_COMMAND_CHANNEL_ID = 0000000000000000000;
+  const std::string name = "exampleBot";
+
+  // File location for the levelData JSON file
+  const std::string fileDescriptor = "./../..";
+
+  ManagerBot exampleManagerBot(
+          name,
+          fileDescriptor,
+          GENERAL_CHANNEL_ID,
+          BOT_COMMAND_CHANNEL_ID
+      );  
+  ```
+
+- <ins> ManagerBot Initialization </ins>
+
+  ```cpp
+  // Using code from previous examples above
+
+  exampleManagerBot.onReady();
+  exampleManagerBot.startInstance();
+  ```
+
 - Features List
     - [x] Manages users levels
     - [x] Tells users their level on command
@@ -33,6 +66,39 @@ This bot is used to manage basic features of the given discord server.
 #### <ins>**GameBot**</ins>
     
 This bot is used to manage game features of the given discord server.
+
+- <ins> Importing the Class </ins>
+
+  ```cpp
+  #include "GameBot.h"
+  ```
+
+- <ins> Constructing a GameBot Object </ins>
+
+  ```cpp
+  const dpp::snowflake GENERAL_CHANNEL_ID = 0000000000000000000;
+  const dpp::snowflake BOT_COMMAND_CHANNEL_ID = 0000000000000000001;
+  const dpp::snowflake GUILD_ID = 0000000000000000002;
+  const std::string name = "exampleBot";
+
+  GameBot exampleGameBot(
+          name,
+          GENERAL_CHANNEL_ID,
+          BOT_COMMAND_CHANNEL_ID,
+          GUILD_ID
+      );
+  ```
+
+- <ins> GameBot Initialization </ins>
+
+  ```cpp
+  // Using code from previous examples above
+
+  exampleGameBot.onReady();
+  exampleGameBot.commandListener();
+  exampleGameBot.messageListener();
+  exampleGameBot.startInstance();
+  ```
 
 - Features List
     - [ ] Manages card inventory system
@@ -61,7 +127,7 @@ The Leveler module is used by the ManagerBot to manage the levels of users in th
 - <ins>Importing the Class</ins>
 
   ```cpp
-  #include "Modules/Leveler.h"
+  #include "modules/Leveler.h"
   ```
 
 - <ins>Loading a JSON file</ins>
@@ -104,6 +170,12 @@ The RoleManager module is used to help manage low level roles in the discord ser
 #### <ins>**Tools**</ins>
 
 The Tools module is used for general purpose helpful methods that can be used by any of the classes in the project.
+
+- <ins> Importing the Class </ins>
+
+  ```cpp
+  #include "modules/Tools.h"
+  ```
 
 - <ins> Converting Between Integer Color Representation and Hex</ins>
 
