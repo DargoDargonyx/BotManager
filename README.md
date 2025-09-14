@@ -7,14 +7,10 @@
 
 This project was designed for the purpose of managing a discord server created for the Linux club at Appalachian State University.
 
-<br>
-
 ## <ins>Contributors</ins>
 
 - **DargoDargon** | Programmer & Vice President of the Linux Club 2025
 - **Ekryito** | Artist
-
-<br>
 
 ## <ins>Bots</ins>
 
@@ -62,20 +58,20 @@ The ImageCreator module is used by the ManagerBot to generate images on command.
 
 The Leveler module is used by the ManagerBot to manage the levels of users in the discord server.
 
-<ins>Importing the Class</ins>
+- <ins>Importing the Class</ins>
 
   ```cpp
   #include "Modules/Leveler.h"
   ```
 
-<ins>Loading a JSON file</ins>
+- <ins>Loading a JSON file</ins>
 
   ```cpp
     // Loads a JSON file from the given file address to use in the class methods
     std::string fileDescriptor = "exampleFile.json";
     Leveler::loadFile(fileDescriptor);
   ```
-<ins>Manipulating Data</ins>
+- <ins>Manipulating Data</ins>
 
   ```cpp
     std::string userId = "exampleId";
@@ -93,7 +89,7 @@ The Leveler module is used by the ManagerBot to manage the levels of users in th
     Leveler::addXP(userId, additionalXP);
   ```
 
-<ins>Saving Changes to the JSON File</ins>
+- <ins>Saving Changes to the JSON File</ins>
 
   ```cpp
     // Saves a JSON file using the given file address
@@ -108,3 +104,14 @@ The RoleManager module is used to help manage low level roles in the discord ser
 #### <ins>**Tools**</ins>
 
 The Tools module is used for general purpose helpful methods that can be used by any of the classes in the project.
+
+- <ins> Converting Between Integer Color Representation and Hex</ins>
+
+  ```cpp
+    // Starting with an example hex color
+    std::string hexColor = "#000000";
+    uint32_t intColor = Tools::hexToIntColor(hexColor);
+
+    // Converting back to hex
+    std::string reHexColor = Tools::intColorToHex(intColor);
+  ```
