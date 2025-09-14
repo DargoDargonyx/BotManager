@@ -1,6 +1,6 @@
 <!--
 @author DargoDargonyx 
-@date 08/26/25
+@date 09/14/25
 -->
 
 # **<ins>Linux Club Server Bot</ins>**
