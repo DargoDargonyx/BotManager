@@ -56,7 +56,7 @@ This bot is used to manage basic features of the given discord server.
     - [x] Tells users their level on command
     - [x] Allows users to check another persons level
     - [x] Tells users when they level up
-    - [ ] Makes a users level card match their main role color
+    - [x] Makes a users level card match their main role color
     - [ ] Doesn't allow a user to spam in a chat in order to gain xp
     - [ ] Doesn't allow users to spam the channel chats
     - [ ] Give warnings to users who are violating rules
