@@ -41,6 +41,23 @@ dpp::cluster managerBot;
 std::string managerBotName;
 dpp::snowflake GENERAL_CHANNEL_ID;
 dpp::snowflake BOT_COMMMAND_CHANNEL_ID;
+dpp::snowflake GUILD_ID;
+
+dpp::cluster ManagerBot::botInitializer() {
+	dotenv::init();
+
+	const char* token_cstr = getenv("WEEMS_TOKEN");
+	if (!token_cstr) {
+		std::cerr << "Error: Loading environment file failed" << std::endl;
+		exit(1);
+	}
+
+	return dpp::cluster(
+		std::string(token_cstr),
+		dpp::i_default_intents | dpp::i_guild_members | dpp::i_message_content
+	);
+}
+
 
 /**
  * @author DargoDargonyx
@@ -62,22 +79,16 @@ ManagerBot::ManagerBot(
 		const std::string& botName, 
 		const std::string& levelFileDescriptor, 
 		const dpp::snowflake generalChannelId, 
-		const dpp::snowflake botCommandChannelId) : 
-			managerBot([] {
-				dotenv::init();
-				const char* token_cstr = getenv("WEEMS_TOKEN");
-				if (!token_cstr) {
-					std::cerr << "Error: Loading environment file failed" << std::endl;;
-					exit(1);
-				}
-				return std::string(token_cstr);
-			}()) {
+		const dpp::snowflake botCommandChannelId,
+		const dpp::snowflake guildId) : managerBot(ManagerBot::botInitializer())
+{
 
 	//=== Sets field values ===
 	this->managerBotName = botName;
 	this->levelFileDescriptor = levelFileDescriptor;
 	this->GENERAL_CHANNEL_ID = generalChannelId;
 	this->BOT_COMMAND_CHANNEL_ID = botCommandChannelId;
+	this->GUILD_ID = guildId;
 
 	//=== Loads the XP JSON file ====
 	Leveler::loadFile(levelFileDescriptor);
@@ -285,6 +296,7 @@ void ManagerBot::levelCommand(const dpp::slashcommand_t& event) {
 	dpp::snowflake userId;
 	std::string barColor; // a color value stored as a hex
 
+	//=== Sets some default color schemes ===
 	auto name = event.get_parameter("other_user");
 	if (std::holds_alternative<dpp::snowflake>(name)) {
 		userId = std::get<dpp::snowflake>(name);
@@ -294,11 +306,35 @@ void ManagerBot::levelCommand(const dpp::slashcommand_t& event) {
 		barColor = "#0073ff"; // light blue in hex
 	}
 
+	//=== Initializes many variables ===
 	std::string user = std::to_string(userId);
 	std::string username = Leveler::getUserName(user);
 	int xp = Leveler::getUserXP(user);
 	int level = Leveler::getUserLevel(user);
 	int threshold = Leveler::thresholdCalculator(user);
+
+	//=== Checks the users role color ===
+    dpp::guild* guild = dpp::find_guild(event.command.guild_id);
+		if (guild) {
+
+			dpp::guild_member member = dpp::find_guild_member(this->GUILD_ID, userId);
+			if(!member.get_roles().empty()) {
+				dpp::role highest_colored_role;
+				bool found = false;
+
+				for (const auto& role_id : member.get_roles()) {
+					dpp::role* r = dpp::find_role(role_id);
+					if (r && r->colour != 0 && r->position > highest_colored_role.position) {
+						highest_colored_role = *r;
+						found = true;
+					}
+				}
+
+				if (found) {
+					barColor = Tools::intColorToHex(highest_colored_role.colour);
+				}
+			}
+		}
 
 	//=== Generates a new image ===
 	Magick::Blob levelBar = ImageCreator::constructLevelImg(

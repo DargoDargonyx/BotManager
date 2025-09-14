@@ -9,9 +9,11 @@
 
 class ManagerBot {
 	public:
+		dpp::cluster botInitializer();
 		ManagerBot(
 			const std::string&,
 			const std::string&,
+			const dpp::snowflake,
 			const dpp::snowflake,
 			const dpp::snowflake
 		);
@@ -30,7 +32,8 @@ class ManagerBot {
 		std::string managerBotName;
 		dpp::cluster managerBot;
 		dpp::snowflake GENERAL_CHANNEL_ID;
-		dpp::snowflake BOT_COMMAND_CHANNEL_ID; 
+		dpp::snowflake BOT_COMMAND_CHANNEL_ID;
+		dpp::snowflake GUILD_ID;
 		void levelTracker();
 		void commandListener();
 		void pingCommand(const dpp::slashcommand_t&);

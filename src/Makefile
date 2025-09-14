@@ -13,10 +13,6 @@ GAME_TARGET = gameBot
 # === Rules ===
 all:
 	$(CXX) $(CXXFLAGS) -o $(GAME_TARGET) $(GAME_SRC) $(LDFLAGS)
-
-game:
-
-manager:
 	$(CXX) $(CXXFLAGS) -o $(MANAGER_TARGET) $(MANAGER_SRC) $(LDFLAGS)
 
 # === Clean Target ===
